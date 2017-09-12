@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+ 
+  <persistence-unit name="JPA-MSSQL" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.exam.entity.Item</class>
+	<properties>
+		<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exam" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="root" />
+		 
+		<property name="eclipselink.orm.throw.exceptions" value="true"/>
+		<property name="eclipselink.orm.throw.exceptions" value="true"/>
+		<property name="eclipselink.flush-clear.cache" value="Drop"/>
+		<property name="eclipselink.cache.size.default" value="5000"/>            
+		<property name="eclipselink.jdbc.cache-statements" value="true"/>
+		<property name="eclipselink.jdbc.cache-statements.size" value="100"/>
+		<property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
+		<property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.SQLServerPlatform"/>
+		<property name="eclipselink.ddl-generation" value="create-tables"/>
+		<property name="eclipselink.logging.level" value="FINE"/>
+    </properties>
+  </persistence-unit>
+   
+   
+</persistence>

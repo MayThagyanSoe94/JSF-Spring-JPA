@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>Inventory Control</title>
+		<style type="text/css">
+body {
+	font-size: 12px;
+	color: #616161;
+}
+
+.columnStyle1 {
+	width: 50px;
+}
+</style>
+	</h:head>
+	<h:form id="itemForm">
+      		<table>
+      				<tr>
+	      				<td><h:outputText value="* Item Name" /></td>
+	      				<td><p:inputText id="name" value="#{ManageItemBean.item.name}" required="true" requiredMessage="Item Name is required"/></td>
+	      				<td><p:message for="name" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Category" escape="false"/></td>
+	      				<td><h:selectOneMenu id="category" value="#{ManageItemBean.item.category}" tabindex="1">
+   							<f:selectItem itemValue="Shampoo" itemLabel="Shampoo" />
+   							<f:selectItem itemValue="LipStick" itemLabel="LipStick" />
+   							<f:selectItem itemValue="MakeUp" itemLabel="MakeUp" />
+						</h:selectOneMenu>
+						</td>
+						<td><p:message for="category" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Brand" /></td>
+	      				<td><p:inputText id="brand" value="#{ManageItemBean.item.brand}" required="true" requiredMessage="Brand is required"/></td>
+						<td><p:message for="brand" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="Item Descriptin" /></td>
+	      				<td><h:inputTextarea value="#{ManageItemBean.item.description}" rows="4"/></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Serial Number" /></td>
+	      				<td><p:inputText id="serialNo" value="#{ManageItemBean.item.serialNo}" required="true" requiredMessage="Serial Number is required"/></td>
+						<td><p:message for="serialNo" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Total Quantity" /></td>
+	      				<td><p:inputText readonly="#{!ManageItemBean.createNew}" id="totalQty" value="#{ManageItemBean.item.totalQty}" required="true" requiredMessage="Total Quantity is required"/></td>
+						<td><p:message for="totalQty" display="text" /></td>
+	      			</tr>
+	      			<p:panelGrid rendered="#{!ManageItemBean.createNew}">	
+	      			<tr>
+	      				<td><h:outputText value="* Stock In" /></td>
+	      				<td><p:inputText id="stockIn" value="#{ManageItemBean.stockIn}">
+	      					<p:ajax process="@this"/>
+	      					</p:inputText>
+	      				</td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Stock Out" /></td>
+	      				<td><p:inputText id="stockOut" value="#{ManageItemBean.stockOut}">
+	      					<p:ajax process="@this"/>
+	      				</p:inputText>	
+	      				</td>
+	      			</tr>
+	      			</p:panelGrid>
+	      			
+	      			<tr>
+	      				<td><h:outputText value="* Buying Price" /></td>
+	      				<td><p:inputText id="buyingPrice" value="#{ManageItemBean.item.buyingPrice}" required="true" requiredMessage="Buying Price is required">
+	      					<p:ajax process="@this"/>
+	      				</p:inputText></td>
+						<td><p:message for="buyingPrice" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Selling Price" /></td>
+	      				<td><p:inputText id="sellingPrice" value="#{ManageItemBean.item.sellingPrice}" required="true" requiredMessage="Selling Price is required" validatorMessage="Selling Price is must be grater than buying Price">
+	      					<f:validateLongRange minimum="#{ManageItemBean.item.buyingPrice}"/>
+	      				</p:inputText>
+	      				</td>
+						<td><p:message for="sellingPrice" display="text" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* Expiry Date" /></td>
+	      				<td><p:calendar id="button" value="#{ManageItemBean.item.date}" showOn="button" required="true" requiredMessage="Expiry Date is required"/></td>
+	      			    <td><p:message for="button" display="text" /></td>
+	      			</tr>
+	      				<tr>
+	      				<td><h:outputText value="* Best Seller" /></td>
+	      				<td colspan="2">
+	      					<p:selectOneRadio value="#{ManageItemBean.item.bestSeller}">
+	      						<f:selectItem itemLabel="Yes" itemValue="Yes"/>
+								<f:selectItem itemLabel="No" itemValue="No"/>
+	      					</p:selectOneRadio>
+	      				</td>
+	      			</tr>
+	      			<h:form rendered="#{ManageItemBean.createNew}">
+	      			<tr>
+	      				<td><p:commandButton  value="Save" action="#{ManageItemBean.add()}"/></td>
+	      				<td><p:commandButton  value="Reset" action="#{ManageItemBean.init()}"/></td>
+	      			</tr>
+	      			</h:form>
+	      			<h:form rendered="#{!ManageItemBean.createNew}">
+	      			<tr>
+	      				<td>
+	      				<p:commandButton value="Update" action="#{ManageItemBean.updateItem()}" update="itemForm :itemTableForm"/>
+	      				</td>
+	      				<td><p:commandButton  value="Cancel" action="#{ManageItemBean.init()}"/></td>
+	      			</tr>
+	      			</h:form>
+	      	</table>
+	      	</h:form>
+	      	<h:form id="itemTableForm">			
+			<br />
+			<p:dataTable value="#{ManageItemBean.itemList}" var="item"
+				border="1" width="100%">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{item.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Category" />
+					</f:facet>
+					<h:outputText value="#{item.category}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Brand" />
+					</f:facet>
+					<h:outputText value="#{item.brand}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="SerialNo" />
+					</f:facet>
+					<h:outputText value="#{item.serialNo}" />
+				</p:column>
+				<p:column>
+				<f:facet name="header">
+					 	<h:outputText value="Edit" />
+					 </f:facet>
+					 <h:commandLink action="#{ManageItemBean.prepareForUpdate(item)}" value="Update" />
+				</p:column>
+				<p:column>
+					 <f:facet name="header">
+					 	<h:outputText value="Delete" />
+					 </f:facet>
+					 <h:commandLink action="#{ManageItemBean.deleteItem(item)}" value="Delete" />
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+		<hr />
+</f:view>

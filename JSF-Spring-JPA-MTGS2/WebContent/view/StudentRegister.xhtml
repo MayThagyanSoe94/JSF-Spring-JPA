@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 	<h:head></h:head>
+ 	<h:body>
+      	<h:form id="studentRegiseter">
+      		<fieldset>
+      			<legend>Student Registeration</legend>
+      			<table>
+      				<tr>
+	      				<td><h:outputText value="* Name" /></td>
+	      				<td><p:inputText id="name" value="#{manageStudent.student.name}" required="true" requiredMessage="Name is required"/></td>
+	      				<td><p:message for="name" display="icon" /></td>
+	      			</tr>
+	      			
+	      			<tr>
+	      				<td><h:outputText value="* Date Of Birth" /></td>
+	      				<td><p:calendar id="button" value="#{manageStudent.student.dateOfBirth}" showOn="button" required="true" requiredMessage="Date Of Birth is required"/></td>
+	      				<td><p:message for="button" display="icon" /></td>
+	      			</tr>
+	      			
+	      			<tr>
+	      				<td><h:outputText value="* Gender" /></td>
+	      				<td colspan="2">
+	      					<p:selectOneRadio value="#{manageStudent.student.gender}">
+	      						<f:selectItem itemLabel="Male" itemValue="Male"/>
+								<f:selectItem itemLabel="Female" itemValue="Female"/>
+	      					</p:selectOneRadio>
+	      				</td>
+	      			</tr>
+	      			<tr>
+	      				<td>
+	      					<h:outputText value="* School" />
+	      				</td>
+	      				<td>
+	      					<p:inputText id="school" value="#{manageStudent.student.school}" required="true"/>
+	      					<p:commandLink id="addressdialog" oncomplete="PF('dlg').show()">
+	      						<p:graphicImage value="/images/search.png" width="25px" height="25px"/>
+	      					</p:commandLink>
+	      				</td>
+	      				<td><p:message for="school" display="icon" /></td>
+	      			</tr>
+	      			<tr>
+	      				<td><h:outputText value="* School Year" /></td>
+	      				<td colspan="2">
+	      					<table>
+	      					<tr>
+		      					<td><h:outputText value="From" /></td>
+		      					<td><p:inputMask id="datefrom" mask="9999" value="#{manageStudent.student.schoolYearFrom}" required="true" style="width:50px;"/></td>
+		      					<td><p:message for="datefrom" display="icon" /></td>
+	      						<td><h:outputText value="To" /></td>
+	      						<td><p:inputMask id="dateto" mask="9999" value="#{manageStudent.student.schoolYearTo}" required="true" style="width:50px;"/></td>
+	      						<td><p:message for="dateto" display="icon" /></td>
+	      					</tr>
+	      					</table>
+	      				</td>
+	      			</tr>
+      			</table>
+      		</fieldset>
+      		<fieldset>
+      			<legend>Subject Register</legend>
+      			<table>
+      				<tr>
+	      				<td><p:outputLabel for="subject" value="* Subject Group" /></td>
+      					<td>
+			      			<p:selectOneMenu id="subject" value="#{manageStudent.student.subject}">
+			      				<p:ajax listener="#{manageStudent.chioseSubject()}" update="studentRegiseter"/>
+			      				<f:selectItem itemLabel="Select One" itemValue=""/>
+			      				<f:selectItems value="#{manageStudent.subjectlist}"/>
+			      			</p:selectOneMenu>
+			      		</td>
+	      			</tr>
+      			</table>
+      		</fieldset>
+      		<h:commandButton value="Save" action="#{manageStudent.save()}"/>
+      		<h:commandButton value="Cancel" type="reset"/>
+      		
+      		<p:dialog widgetVar="dlg" header="School dialog" modal="true" width="70%">
+      			<p:dataTable value="#{manageStudent.addresslist}" var="address" border="1" width="65%" binding="#{table}">
+				<p:column headerText="No" style="text-align:center;width:15px;font-size:13px">
+					<h:outputText value="#{table.rowIndex + SessionsController.firstRow + 1}" style="text-align:center" />
+				</p:column>
+				<p:column headerText="Name">
+					<h:outputText value="#{address.name}" />
+				</p:column>
+				<p:column headerText="Address">
+					<h:outputText value="#{address.address}" />
+				</p:column>
+				<p:column>
+					<p:commandButton value="Save" update="studentRegiseter"/>
+				</p:column>
+			</p:dataTable>
+      		</p:dialog>
+      		<p:dialog id="biology" widgetVar="bio" width="65%" header="Student Mark Register"> 
+      			<p:panelGrid columns="2">
+      				<h:outputText value="* Subject Group" />
+      				<p:selectOneMenu id="subject1" value="#{manageStudent.student.subject}">
+			      		<p:ajax listener="#{manageStudent.chioseSubject()}" update=":studentRegiseter"/>
+			      		<f:selectItem itemLabel="Select One" itemValue=""/>
+			      		<f:selectItems value="#{manageStudent.subjectlist}"/>
+			      	</p:selectOneMenu>
+			      	
+			      	<h:outputText value="Myanmar" />
+			      	<p:inputText value="#{manageStudent.student.myanmar}"/>
+			      	
+			      	<h:outputText value="English" />
+			      	<p:inputText value="#{manageStudent.student.english}"/>
+			      	
+			      	<h:outputText value="Chemistry" />
+			      	<p:inputText value="#{manageStudent.student.chemistry}"/>
+			      		
+			      	<h:outputText value="Physis" />
+			      	<p:inputText value="#{manageStudent.student.physis}"/>
+			      		
+			      	<h:outputText value="Bio" />
+			      	<p:inputText value="#{manageStudent.student.bio}"/>
+      			</p:panelGrid>
+      		</p:dialog>
+      	</h:form>
+      </h:body>
+</html>
