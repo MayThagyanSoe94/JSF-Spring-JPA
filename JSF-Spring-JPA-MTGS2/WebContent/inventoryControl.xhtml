@@ -103,7 +103,7 @@ body {
 	      			<h:form rendered="#{ManageItemBean.createNew}">
 	      			<tr>
 	      				<td><p:commandButton  value="Save" action="#{ManageItemBean.add()}"/></td>
-	      				<td><p:commandButton  value="Reset" action="#{ManageItemBean.init()}"/></td>
+	      				<td><p:commandButton  value="Reset" action="#{ManageItemBean.prepareForAdd()}"/></td>
 	      			</tr>
 	      			</h:form>
 	      			<h:form rendered="#{!ManageItemBean.createNew}">
@@ -111,7 +111,7 @@ body {
 	      				<td>
 	      				<p:commandButton value="Update" action="#{ManageItemBean.updateItem()}" update="itemForm :itemTableForm"/>
 	      				</td>
-	      				<td><p:commandButton  value="Cancel" action="#{ManageItemBean.init()}"/></td>
+	      				<td><p:commandButton  value="Cancel" action="#{ManageItemBean.prepareForAdd()}"/></td>
 	      			</tr>
 	      			</h:form>
 	      	</table>
