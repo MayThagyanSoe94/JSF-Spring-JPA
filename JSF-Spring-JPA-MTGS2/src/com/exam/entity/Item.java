@@ -28,7 +28,7 @@ import com.exam.common.TableName;
 public class Item implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE,generator = "GEN_ITEM")
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private String id;
 	private String name;
 	private String category;
