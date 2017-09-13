@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import com.exam.common.TableName;
 
@@ -28,7 +29,7 @@ import com.exam.common.TableName;
 public class Item implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.TABLE,generator = "ITEM_GEN")
 	private String id;
 	private String name;
 	private String category;
@@ -41,6 +42,9 @@ public class Item implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String bestSeller="Yes";
+	
+	@Version
+	private int version;
 	
 	public Item() {
 		super();
@@ -133,13 +137,12 @@ public class Item implements Serializable{
 	public void setBestSeller(String bestSeller) {
 		this.bestSeller = bestSeller;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", category=" + category + ", brand=" + brand + ", description="
 				+ description + ", serialNo=" + serialNo + ", totalQty=" + totalQty + ", buyingPrice=" + buyingPrice
 				+ ", sellingPrice=" + sellingPrice + ", date=" + date + ", bestSeller=" + bestSeller + "]";
 	}
-	
-	
 }
+
