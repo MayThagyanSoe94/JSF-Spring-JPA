@@ -81,7 +81,8 @@ body {
 	      			<tr>
 	      				<td><h:outputText value="* Selling Price" /></td>
 	      				<td><p:inputText id="sellingPrice" value="#{ManageItemBean.item.sellingPrice}" required="true" requiredMessage="Selling Price is required" validatorMessage="Selling Price is must be grater than buying Price">
-	      					<f:validateLongRange minimum="#{ManageItemBean.item.buyingPrice}"/>
+	      					<f:validateDoubleRange minimum="#{ManageItemBean.item.buyingPrice}"/>
+	      					<p:ajax process="@this"/>
 	      				</p:inputText>
 	      				</td>
 						<td><p:message for="sellingPrice" display="text" /></td>
@@ -100,20 +101,16 @@ body {
 	      					</p:selectOneRadio>
 	      				</td>
 	      			</tr>
-	      			<h:form rendered="#{ManageItemBean.createNew}">
 	      			<tr>
-	      				<td><p:commandButton  value="Save" action="#{ManageItemBean.add()}"/></td>
-	      				<td><p:commandButton  value="Reset" action="#{ManageItemBean.prepareForAdd()}"/></td>
+	      				<td><p:commandButton rendered="#{ManageItemBean.createNew}" value="Save" action="#{ManageItemBean.add()}" update="itemForm :itemTableForm"/></td>
+	      				<td><p:commandButton rendered="#{ManageItemBean.createNew}" value="Reset" action="#{ManageItemBean.prepareForAdd()}" type="reset"/></td>
 	      			</tr>
-	      			</h:form>
-	      			<h:form rendered="#{!ManageItemBean.createNew}">
 	      			<tr>
 	      				<td>
-	      				<p:commandButton value="Update" action="#{ManageItemBean.updateItem()}" update="itemForm :itemTableForm"/>
+	      				<p:commandButton rendered="#{!ManageItemBean.createNew}" value="Update" action="#{ManageItemBean.updateItem()}" update="itemForm :itemTableForm"/>
 	      				</td>
-	      				<td><p:commandButton  value="Cancel" action="#{ManageItemBean.prepareForAdd()}"/></td>
+	      				<td><p:commandButton rendered="#{!ManageItemBean.createNew}" value="Cancel" action="#{ManageItemBean.prepareForAdd()}" update="itemForm"/></td>
 	      			</tr>
-	      			</h:form>
 	      	</table>
 	      	</h:form>
 	      	<h:form id="itemTableForm">			
