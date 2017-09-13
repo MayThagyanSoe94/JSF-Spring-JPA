@@ -141,12 +141,17 @@ body {
 					</f:facet>
 					<h:outputText value="#{item.brand}" />
 				</p:column>
-				
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="SerialNo" />
 					</f:facet>
 					<h:outputText value="#{item.serialNo}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="TotalQty" />
+					</f:facet>
+					<h:outputText value="#{item.totalQty}" />
 				</p:column>
 				<p:column>
 				<f:facet name="header">
@@ -165,3 +170,4 @@ body {
 		</h:form>
 		<hr />
 </f:view>
+
